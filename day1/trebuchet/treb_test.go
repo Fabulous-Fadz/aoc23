@@ -3,7 +3,7 @@ package trebuchet_test
 import (
 	"testing"
 
-	trebuchet "github.com/Fabulous-Fadz/aoc23/Day1/Trebuchet"
+	"github.com/Fabulous-Fadz/aoc23/day1/trebuchet"
 )
 
 var (
@@ -39,6 +39,7 @@ var (
 func TestDecode(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
+			//have := trebuchet.DecodeInput(tc.input)
 			have := trebuchet.DecodeInput(tc.input)
 			if tc.want != have {
 				t.Errorf("Decoding failed. Want %v, have %v", tc.want, have)
