@@ -108,6 +108,14 @@ func DecodeAll(codes [][]byte) (sum int) {
 	return
 }
 
+func DecodeAllWords(codes [][]byte) (sum int) {
+	for _, code := range codes {
+		sum += DecodeWithWords(code)
+	}
+
+	return
+}
+
 func isDigit(char byte) bool {
 	diff := char - '0'
 	return diff <= 9

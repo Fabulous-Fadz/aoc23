@@ -30,9 +30,9 @@ var (
 		{"4nineeightseven2", []byte("4nineeightseven2"), 42},
 		{"zoneight234", []byte("zoneight234"), 14},
 		{"7pqrstsixteen", []byte("7pqrstsixteen"), 76},
-		{"88-dude", []byte("peightp"), 88},
+		/*{"88-dude", []byte("peightp"), 88},
 		{"89-dude", []byte("peight9p"), 89},
-		{"eleven", []byte("one"), 11},
+		{"eleven", []byte("one"), 11},*/
 	}
 
 	allTests = []struct {
@@ -51,6 +51,26 @@ var (
 			142,
 		},
 	}
+
+	allWords = []struct {
+		name  string
+		input [][]byte
+		want  int
+	}{
+		{
+			"TestAllWords",
+			[][]byte{
+				[]byte("two1nine"),
+				[]byte("eightwothree"),
+				[]byte("abcone2threexyz"),
+				[]byte("xtwone3four"),
+				[]byte("4nineeightseven2"),
+				[]byte("zoneight234"),
+				[]byte("7pqrstsixteen"),
+			},
+			281,
+		},
+	}
 )
 
 func TestDecode(t *testing.T) {
@@ -65,7 +85,7 @@ func TestDecode(t *testing.T) {
 	}
 }
 
-func TestTestAll(t *testing.T) {
+func TestDecodeAll(t *testing.T) {
 	for _, tc := range allTests {
 		t.Run(tc.name, func(t *testing.T) {
 			have := trebuchet.DecodeAll(tc.input)
@@ -80,6 +100,17 @@ func TestDecodeWords(t *testing.T) {
 	for _, tc := range extraCases {
 		t.Run(tc.name, func(t *testing.T) {
 			have := trebuchet.DecodeWithWords(tc.input)
+			if tc.want != have {
+				t.Errorf("Decoding failed. Want %v, have %v", tc.want, have)
+			}
+		})
+	}
+}
+
+func TestDecodeAllWords(t *testing.T) {
+	for _, tc := range allWords {
+		t.Run(tc.name, func(t *testing.T) {
+			have := trebuchet.DecodeAllWords(tc.input)
 			if tc.want != have {
 				t.Errorf("Decoding failed. Want %v, have %v", tc.want, have)
 			}

@@ -20,6 +20,7 @@ type Trie struct {
 	root *node
 }
 
+// New creates a new empty Trie and returns a pointer to it.
 func New() *Trie {
 	return &Trie{
 		root: &node{
