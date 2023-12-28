@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	trebuchet "github.com/Fabulous-Fadz/aoc23/Day1/Trebuchet"
+	"github.com/Fabulous-Fadz/aoc23/day1/trebuchet"
 )
 
 var fileData = must(os.ReadFile("input.txt"))
