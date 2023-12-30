@@ -7,9 +7,10 @@ import (
 	"strings"
 
 	"github.com/Fabulous-Fadz/aoc23/day1/trebuchet"
+	"github.com/Fabulous-Fadz/aoc23/internal"
 )
 
-var fileData = must(os.ReadFile("input.txt"))
+var fileData = internal.Must(os.ReadFile("../input.txt"))
 
 func main() {
 	items := [][]byte{}
