@@ -1,6 +1,9 @@
 package trebuchet
 
-import "github.com/Fabulous-Fadz/aoc23/day1/trebuchet/word"
+import (
+	"github.com/Fabulous-Fadz/aoc23/day1/trebuchet/word"
+	"github.com/Fabulous-Fadz/aoc23/internal"
+)
 
 var (
 	numbers = map[string]int{
@@ -31,7 +34,7 @@ func DecodeInput(code []byte) int {
 	left, right := 0, len(code)-1
 
 	for {
-		leftOk, rightOk := isDigit(code[left]), isDigit(code[right])
+		leftOk, rightOk := internal.IsDigit(code[left]), internal.IsDigit(code[right])
 
 		if leftOk && rightOk {
 			break
@@ -61,35 +64,37 @@ func DecodeWithWords(code []byte) int {
 
 		// Now check left for right numbers...
 		var i int
-		for i = left; !leftOk && i < len(code); i++ {
-			if isDigit(code[left]) {
-				leftNum = int(code[left] - '0')
-				left, leftOk = i, true
-				break
-			}
-			// try to match once we no longer find a match...
-			if words.ContainsPrefix(string(code[left : i+1])) {
-				continue
-			} else if words.Contains(string(code[left:i])) { // +1 removed because we're looking at previous index now.
-				// If we found the word in the trie then we have it in the dictionary...
+		for i = left; !leftOk && i < len(code) && !words.ContainsPrefix(string(code[i])); i++ {
+			if internal.IsDigit(code[i]) {
 				leftOk = true
-				leftNum = numbers[string(code[left:i])]
+				leftNum = int(code[i] - '0')
 			}
 		}
 
-		// Check on the right...
-		for i = right - 1; !rightOk && i >= 0; i-- {
-			if isDigit(code[right]) {
-				rightNum = int(code[right] - '0')
-				right, rightOk = i, true
-				break
-			}
+		if !leftOk {
+			left = i
+		}
 
-			if words.ContainsSuffix(string(code[i : right+1])) {
-				continue
-			} else if word := string(code[i+1 : right+1]); words.Contains(word) { //words.Contains(string(code[i+1:right+1])){
+		// Here either leftOk==true or we have found a prefix
+		for i = left + 1; !leftOk && i < len(code) && words.ContainsPrefix(string(code[left:i+1])); i++ {
+			if words.Contains(string(code[left : i+1])) {
+				leftOk = true
+				leftNum = numbers[string(code[left:i+1])]
+			}
+		}
+
+		for ; !rightOk && right >= 0 && !words.ContainsSuffix(string(code[right])); right-- {
+			if internal.IsDigit(code[right]) {
 				rightOk = true
-				rightNum = numbers[word]
+				rightNum = int(code[right] - '0')
+			}
+		}
+
+		// Here either rightOk == true or we have found a suffix...
+		for i = right - 1; !rightOk && i >= 0 && words.ContainsSuffix(string(code[i:right+1])); i-- {
+			if words.Contains(string(code[i : right+1])) {
+				rightOk = true
+				rightNum = numbers[string(code[i:right+1])]
 			}
 		}
 
@@ -114,9 +119,4 @@ func DecodeAllWords(codes [][]byte) (sum int) {
 	}
 
 	return
-}
-
-func isDigit(char byte) bool {
-	diff := char - '0'
-	return diff <= 9
 }
