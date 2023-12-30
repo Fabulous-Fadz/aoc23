@@ -23,16 +23,20 @@ var (
 		input []byte
 		want  int
 	}{
-		{"two1nine", []byte("two1nine"), 29},
-		{"eightwothree", []byte("eightwothree"), 83},
-		{"abcone2threexyz", []byte("abcone2threexyz"), 13},
-		{"xtwone3four", []byte("xtwone3four"), 24},
-		{"4nineeightseven2", []byte("4nineeightseven2"), 42},
-		{"zoneight234", []byte("zoneight234"), 14},
-		{"7pqrstsixteen", []byte("7pqrstsixteen"), 76},
-		/*{"88-dude", []byte("peightp"), 88},
-		{"89-dude", []byte("peight9p"), 89},
-		{"eleven", []byte("one"), 11},*/
+		// {"two1nine", []byte("two1nine"), 29},
+		// {"eightwothree", []byte("eightwothree"), 83},
+		// {"abcone2threexyz", []byte("abcone2threexyz"), 13},
+		// {"xtwone3four", []byte("xtwone3four"), 24},
+		// {"4nineeightseven2", []byte("4nineeightseven2"), 42},
+		// {"zoneight234", []byte("zoneight234"), 14},
+		// {"7pqrstsixteen", []byte("7pqrstsixteen"), 76},
+		// {"88", []byte("eight7eightcx"), 88},
+		// {"12", []byte("1onetwo2"), 12},
+		// {"66", []byte("6vtg"), 66},
+		// {"88-dude", []byte("peightp"), 88},
+		// {"89-dude", []byte("peight9p"), 89},
+		// {"eleven", []byte("one"), 11},
+		{"11-again", []byte("12jsdmvonesth"), 11},
 	}
 
 	allTests = []struct {
