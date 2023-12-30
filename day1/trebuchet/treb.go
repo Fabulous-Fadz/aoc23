@@ -76,7 +76,7 @@ func DecodeWithWords(code []byte) int {
 		}
 
 		// Here either leftOk==true or we have found a prefix
-		for i = left + 1; !leftOk && i < len(code) && words.ContainsPrefix(string(code[left:i+1])); i++ {
+		for i = left + 2; !leftOk && i < len(code) && words.ContainsPrefix(string(code[left:i+1])); i++ {
 			if words.Contains(string(code[left : i+1])) {
 				leftOk = true
 				leftNum = numbers[string(code[left:i+1])]
@@ -91,7 +91,7 @@ func DecodeWithWords(code []byte) int {
 		}
 
 		// Here either rightOk == true or we have found a suffix...
-		for i = right - 1; !rightOk && i >= 0 && words.ContainsSuffix(string(code[i:right+1])); i-- {
+		for i = right - 2; !rightOk && i >= 0 && words.ContainsSuffix(string(code[i:right+1])); i-- {
 			if words.Contains(string(code[i : right+1])) {
 				rightOk = true
 				rightNum = numbers[string(code[i:right+1])]
