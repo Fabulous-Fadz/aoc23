@@ -121,3 +121,11 @@ func TestDecodeAllWords(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkDecodeAllWords(b *testing.B) {
+	for _, tc := range allWords {
+		b.Run(tc.name, func(b *testing.B) {
+			_ = trebuchet.DecodeAllWords(tc.input)
+		})
+	}
+}
