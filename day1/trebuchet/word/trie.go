@@ -29,7 +29,7 @@ func New() *Trie {
 	}
 }
 
-func (t Trie) Insert(word string) {
+func (t *Trie) Insert(word string) {
 	currentNode, wordLength := t.root, len(word)
 	for i := 0; i < wordLength; i++ {
 		index := word[i] - 'a'
@@ -44,14 +44,14 @@ func (t Trie) Insert(word string) {
 	currentNode.isEnd = true
 }
 
-func (t Trie) InsertReverse(word string) {
+func (t *Trie) InsertReverse(word string) {
 	foo := []byte(word)
 
 	slices.Reverse(foo)
 	t.Insert(string(foo))
 }
 
-func (t Trie) Contains(word string) bool {
+func (t *Trie) Contains(word string) bool {
 	currentNode, wordLength := t.root, len(word)
 	for i := 0; i < wordLength; i++ {
 		index := int(word[i] - 'a')
@@ -67,7 +67,7 @@ func (t Trie) Contains(word string) bool {
 	return currentNode.isEnd
 }
 
-func (t Trie) ContainsPrefix(word string) bool {
+func (t *Trie) ContainsPrefix(word string) bool {
 	currentNode, wordLength := t.root, len(word)
 	for i := 0; i < wordLength; i++ {
 		index := int(word[i] - 'a')
@@ -83,7 +83,7 @@ func (t Trie) ContainsPrefix(word string) bool {
 	return true
 }
 
-func (t Trie) ContainsSuffix(word string) bool {
+func (t *Trie) ContainsSuffix(word string) bool {
 	currentNode, lastChar := t.root, len(word)-1
 	for i := lastChar; i >= 0; i-- {
 		if internal.IsDigit(word[i]) {
