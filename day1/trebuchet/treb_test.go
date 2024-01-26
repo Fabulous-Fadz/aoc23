@@ -56,24 +56,22 @@ var (
 		},
 	}
 
-	allWords = []struct {
+	allWords = struct {
 		name  string
 		input [][]byte
 		want  int
 	}{
-		{
-			"TestAllWords",
-			[][]byte{
-				[]byte("two1nine"),
-				[]byte("eightwothree"),
-				[]byte("abcone2threexyz"),
-				[]byte("xtwone3four"),
-				[]byte("4nineeightseven2"),
-				[]byte("zoneight234"),
-				[]byte("7pqrstsixteen"),
-			},
-			281,
+		"TestAllWords",
+		[][]byte{
+			[]byte("two1nine"),
+			[]byte("eightwothree"),
+			[]byte("abcone2threexyz"),
+			[]byte("xtwone3four"),
+			[]byte("4nineeightseven2"),
+			[]byte("zoneight234"),
+			[]byte("7pqrstsixteen"),
 		},
+		281,
 	}
 )
 
@@ -112,20 +110,23 @@ func TestDecodeWords(t *testing.T) {
 }
 
 func TestDecodeAllWords(t *testing.T) {
-	for _, tc := range allWords {
-		t.Run(tc.name, func(t *testing.T) {
-			have := trebuchet.DecodeAllWords(tc.input)
-			if tc.want != have {
-				t.Errorf("Decoding failed. Want %v, have %v", tc.want, have)
-			}
-		})
-	}
+	//for _, tc := range allWords {
+	t.Run(allWords.name, func(t *testing.T) {
+		have := trebuchet.DecodeAllWords(allWords.input)
+		if allWords.want != have {
+			t.Errorf("Decoding failed. Want %v, have %v", allWords.want, have)
+		}
+	})
+	//}
 }
 
 func BenchmarkDecodeAllWords(b *testing.B) {
-	for _, tc := range allWords {
+	/*for _, tc := range allWords {
 		b.Run(tc.name, func(b *testing.B) {
 			_ = trebuchet.DecodeAllWords(tc.input)
 		})
+	}*/
+	for i := 0; i < b.N; i++ {
+		_ = trebuchet.DecodeAllWords(allWords.input)
 	}
 }
